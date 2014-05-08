@@ -10,6 +10,9 @@ vy = 10;
 bar1X = 40;
 bar1Y = 0;
 
+bar2X = width - 40;
+bar2Y = height/2;
+
 function main() { 
   console.log("start");
   cvs = document.getElementById('cvs');
@@ -21,6 +24,8 @@ function main() {
   cvs.onmousemove = function (e) {
     bar1Y = e.clientY;
   };
+  
+
 }
 
 function draw() {
@@ -30,7 +35,17 @@ function draw() {
   if(by < 0 || by > height)vy *= -1;
   drawBall(bx,by);
   drawBar(bar1X,bar1Y);
+  drawBar(bar2X,bar2Y);
+  moveBar2Random();
   checkCollision();
+}
+
+function moveBar2Random(){
+//  var dy = Math.floor(Math.random()*100-50);
+//   bar2Y += dy;
+   bar2Y = by;
+//   if(bar2Y < 0)bar2Y = 0;
+//   if(bar2Y > height) bar2Y = height;
 }
 
 function drawBall(x,y) {
@@ -48,5 +63,9 @@ function drawBar(x,y) {
 function checkCollision() {
   var dx = Math.abs(bar1X - bx);
   var dy = Math.abs(bar1Y - by);
-  return dx < 10 && dy < barHeight;
+  if( dx < 10 && dy < barHeight)return true;
+  dx = Math.abs(bar2X - bx);
+  dy = Math.abs(bar2Y - by);
+  if( dx < 10 && dy < barHeight)return true;
+  return false;
 }
