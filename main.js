@@ -8,6 +8,9 @@ by = 100;
 vx = Math.random()*8+6;
 vy = Math.random()*8+6;
 bar1X = 40;
+
+width = 500;
+height = 500;
 bar1Y = 0;
 
 bar2X = width - 40;
@@ -22,6 +25,8 @@ function main() {
   console.log("start");
   cvs = document.getElementById('cvs');
   ctx = cvs.getContext('2d');
+  cvs.width = width;
+  cvs.height = height;
   var x =100,y =100;
   setInterval(function(){
     draw();
@@ -41,7 +46,9 @@ function draw() {
   if(by < 0 || by > height)vy *= -1;
   ctx.clearRect(0,0,width,height);
   drawBall(bx,by);
+  ctx.fillStyle = "red";
   drawBar(bar1X,bar1Y);
+  ctx.fillStyle = "#000fff";
   drawBar(bar2X,bar2Y);
   moveBar2Random();
   checkCollision();
@@ -64,6 +71,7 @@ function updateScore(){
 }
 
 function drawBall(x,y) {
+  ctx.fillStyle = "#00ff00";
   ctx.beginPath(); 
   ctx.arc(x,y,R,0,Math.PI*2,false);
   ctx.closePath();
